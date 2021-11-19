@@ -38,12 +38,12 @@
                     <CountryFlag :country="oneSeries.original_language" size='big'/>
                </span>
                
-               <span @click="transformVoteInToStar(oneSeries.vote_count)">
-                    <div v-for="index in 5" >
-                         stella
-                    </div>
-               </span>
-
+               
+               <font-awesome-icon v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
+                    
+               <font-awesome-icon :icon="['fas','fa-star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
+                <font-awesome-icon icon="user-secret" />      
+ <font-awesome-icon :icon="['fas','fa-star']" />
                <img :src="'http://image.tmdb.org/t/p/w92/'+oneSeries.poster_path" alt="">
           </div>
 
@@ -56,12 +56,14 @@
 <script>
 import CountryFlag from '../../node_modules/vue-country-flag'
 
+
 import axios from "axios"
 
 export default{
 
      components:{
           CountryFlag,
+          
      },
 
     data(){
@@ -102,11 +104,6 @@ export default{
                })
 
                
-          },
-
-          transformVoteInToStar(one){
-               this.NumeroDiStelle=(Math.ceil(one/2))
-               console.log(this.NumeroDiStelle)
           },
 
      }
