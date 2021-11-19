@@ -5,21 +5,23 @@
                <button @click="callApi" type="button">Start</button>
           </div>
           
-          
+         
           <div class="padding" v-for="movie in movies" :key="movie.id">
-               {{movie.title}} <br>
-               {{movie.original_title}} <br>
-               <span v-if="movie.original_language=='en'">
-                    <CountryFlag country="gb-eng" size='big'/>
-               </span>
-               <span v-else-if="movie.original_language=='undefined'">
-                    Bandiera non disponibile
-               </span>
-               <span v-else>
-                         <CountryFlag country="eng" size='big'/>
-               </span>
+               <div v-if="movie.vote_average > 0"> 
 
-               {{movie.vote_average}} <br>
+                    {{movie.title}} <br>
+                    {{movie.original_title}} <br>
+                    <span v-if="movie.original_language=='en'">
+                         <CountryFlag country="gb-eng" size='big'/>
+                    </span>
+
+                    <span v-else>
+                         <CountryFlag country="eng" size='big'/>
+                    </span>
+
+                    {{movie.vote_average}} <br>
+
+               </div>  
           </div> 
              
      </div>
