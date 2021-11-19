@@ -39,7 +39,7 @@
                </span>
                
                <span @click="transformVoteInToStar(oneSeries.vote_count)">
-                    <div v-for"index in " >
+                    <div v-for="index in 5" >
                          stella
                     </div>
                </span>
