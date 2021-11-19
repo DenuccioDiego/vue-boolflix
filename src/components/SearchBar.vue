@@ -9,18 +9,37 @@
           <div class="padding" v-for="movie in movies" :key="movie.id">
                {{movie.title}} <br>
                {{movie.original_title}} <br>
-               {{movie.original_language}} <br>
+               <span v-if="movie.original_language=='en'">
+                    <CountryFlag country="gb-eng" size='big'/>
+               </span>
+               <span v-else-if="movie.original_language=='undefined'">
+                    Bandiera non disponibile
+               </span>
+               <span v-else>
+                         <CountryFlag country="eng" size='big'/>
+               </span>
+
                {{movie.vote_average}} <br>
           </div> 
-
+             
      </div>
+
+     
 </template>
+          
 
 <script>
+import CountryFlag from '../../node_modules/vue-country-flag'
+
+
 
 import axios from "axios"
 
 export default{
+     components:{
+          CountryFlag,
+     },
+
     data(){
           return{   
                userSearch : "",
