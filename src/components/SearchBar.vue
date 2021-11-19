@@ -2,28 +2,44 @@
      <div>
           <div class="padding">
                <input v-model="userSearch" type="text" placeholder="Search...">
-               <button @click="callApi" type="button">Start</button>
+               <button @click="callApiMovies(); callApiSeries()" type="button">Start</button>
           </div>
           
-         
+          <h2>Film</h2>
           <div class="padding" v-for="movie in movies" :key="movie.id">
-               <div v-if="movie.vote_average > 0"> 
 
-                    {{movie.title}} <br>
-                    {{movie.original_title}} <br>
-                    <span v-if="movie.original_language=='en'">
-                         <CountryFlag country="gb-eng" size='big'/>
-                    </span>
+               {{movie.title}} <br>
+               {{movie.original_title}} <br>
+               <span v-if="movie.original_language=='en'">
+                    <CountryFlag country="gb-eng" size='big'/>
+               </span>
 
-                    <span v-else>
-                         <CountryFlag country="eng" size='big'/>
-                    </span>
+               <span v-else>
+                    <CountryFlag :country="movie.original_language" size='big'/>
+               </span>
 
-                    {{movie.vote_average}} <br>
-
-               </div>  
+               {{movie.vote_average}} <br>
+  
           </div> 
-             
+
+          <h2>Series TV</h2>
+          <div class="padding" v-for="oneSeries in series" :key="oneSeries.id">
+
+               {{oneSeries.name}}
+               {{oneSeries.original_name}}
+
+               <span v-if="oneSeries.original_language == 'en'"> 
+                    <CountryFlag country="gb-eng" size='big'/>
+               </span>
+
+               <span v-else>
+                    <CountryFlag :country="oneSeries.original_language" size='big'/>
+               </span>
+               
+               {{oneSeries.vote_average}}
+
+          </div>
+
      </div>
 
      
@@ -38,6 +54,7 @@ import CountryFlag from '../../node_modules/vue-country-flag'
 import axios from "axios"
 
 export default{
+     
      components:{
           CountryFlag,
      },
@@ -46,6 +63,7 @@ export default{
           return{   
                userSearch : "",
                movies : [],
+               series : [],
                error : "",
           }
          
@@ -53,15 +71,26 @@ export default{
 
      methods:{
 
-          callApi(){
+          callApiSeries(){
+               axios
+               .get("https://api.themoviedb.org/3/search/tv?api_key=30f94b70393e21156823d2636f7229b7&query="+this.userSearch)
+               .then(response =>{
+                    this.series = response.data.results
+                    console.log(this.series)
+               }).catch(e=>{
+                    this.error = `Ops ${e}`
+               })
+          },
+
+          callApiMovies(){
                axios
                .get("https://api.themoviedb.org/3/search/movie?api_key=30f94b70393e21156823d2636f7229b7&language=en-US&include_adult=false&query="+this.userSearch)
                .then(response=>{
-                    console.log(response.data.results)
                     this.movies = response.data.results
                     console.log(this.movies)
-                    console.log(this.userSearch)
                     this.userSearch = ""
+               }).catch(e=>{
+                    this.error = `Ops ${e}`
                })
 
                
