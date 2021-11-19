@@ -2,7 +2,7 @@
      <div>
           <div class="padding">
                <input v-model="userSearch" type="text" placeholder="Search...">
-               <button @click="callApiMovies(); callApiSeries()" type="button">Start</button>
+               <button @click="callApiMovies(); callApiSeries();" type="button">Start</button>
           </div>
           
           <h2>Film</h2>
@@ -38,7 +38,11 @@
                     <CountryFlag :country="oneSeries.original_language" size='big'/>
                </span>
                
-               {{oneSeries.vote_average}}
+               <span @click="transformVoteInToStar(oneSeries.vote_count)">
+                    <div v-for"index in " >
+                         stella
+                    </div>
+               </span>
 
                <img :src="'http://image.tmdb.org/t/p/w92/'+oneSeries.poster_path" alt="">
           </div>
@@ -51,8 +55,6 @@
 
 <script>
 import CountryFlag from '../../node_modules/vue-country-flag'
-
-
 
 import axios from "axios"
 
@@ -68,12 +70,14 @@ export default{
                movies : [],
                series : [],
                error : "",
-               
+               NumeroDiStelle : Number,
           }
          
      },
 
      methods:{
+
+         
 
           callApiSeries(){
                axios
@@ -88,7 +92,7 @@ export default{
 
           callApiMovies(){
                axios
-               .get("https://api.themoviedb.org/3/search/movie?api_key=30f94b70393e21156823d2636f7229b7&language=en-US&include_adult=false&query="+this.userSearch)
+               .get("https://api.themoviedb.org/3/search/movie?api_key=30f94b70393e21156823d2636f7229b7&query="+this.userSearch)
                .then(response=>{
                     this.movies = response.data.results
                     console.log(this.movies)
@@ -98,7 +102,12 @@ export default{
                })
 
                
-          }
+          },
+
+          transformVoteInToStar(one){
+               this.NumeroDiStelle=(Math.ceil(one/2))
+               console.log(this.NumeroDiStelle)
+          },
 
      }
 }
