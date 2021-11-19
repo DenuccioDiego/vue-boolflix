@@ -19,7 +19,9 @@
                </span>
 
                {{movie.vote_average}} <br>
-  
+
+               <img :src="'http://image.tmdb.org/t/p/w92/'+movie.poster_path" alt="">
+
           </div> 
 
           <h2>Series TV</h2>
@@ -38,6 +40,7 @@
                
                {{oneSeries.vote_average}}
 
+               <img :src="'http://image.tmdb.org/t/p/w92/'+oneSeries.poster_path" alt="">
           </div>
 
      </div>
@@ -54,7 +57,7 @@ import CountryFlag from '../../node_modules/vue-country-flag'
 import axios from "axios"
 
 export default{
-     
+
      components:{
           CountryFlag,
      },
@@ -65,6 +68,7 @@ export default{
                movies : [],
                series : [],
                error : "",
+               
           }
          
      },
