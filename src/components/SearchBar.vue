@@ -39,11 +39,12 @@
                </span>
                
                
-               <font-awesome-icon v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
+               <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
                     
-               <font-awesome-icon :icon="['fas','fa-star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
-                <font-awesome-icon icon="user-secret" />      
- <font-awesome-icon :icon="['fas','fa-star']" />
+               <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
+               
+                  
+               
                <img :src="'http://image.tmdb.org/t/p/w92/'+oneSeries.poster_path" alt="">
           </div>
 
@@ -111,6 +112,11 @@ export default{
 </script>
 
 <style scoped lang="scss">
+
+.gold{
+     color: gold;
+}
+
 .padding{
      padding-bottom: 20px;
 }
