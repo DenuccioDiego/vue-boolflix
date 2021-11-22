@@ -30,7 +30,7 @@
                 <span class="title">Titolo: </span> {{movie.title}} 
               </p>
 
-              <p>
+              <p v-if="movie.original_title != movie.title ">
                 <span class="title">Titolo originale: </span> {{movie.original_title}}
               </p>
               
@@ -47,13 +47,20 @@
                 <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(movie.vote_average/2)" :key="index" />
                 <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(movie.vote_average/2))" :key="index" />
               </p>
-                  
+
+              <p v-if="movie.overview != ''">
+                <span class="title">Overview: </span>
+                {{movie.overview}}
+              </p>
+
             </div>  
             
           </div>
         </div>
         
       </section>
+
+
       <!-- Serie tv -->
       <section class="">
         <h2 class="">Series TV</h2>
@@ -69,7 +76,7 @@
                 <span class="title">Titolo: </span> {{oneSeries.name}} 
               </p>
 
-              <p>
+              <p v-if="oneSeries.original_name != oneSeries.name ">
                 <span class="title">Titolo originale: </span> {{oneSeries.original_name}}
               </p>
               
@@ -85,6 +92,11 @@
                 <span class="title">Valutazione: </span>
                 <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
                 <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
+              </p>
+
+              <p v-if="oneSeries.overview != ''">
+                <span class="title">Overview: </span>
+                {{oneSeries.overview}}
               </p>
                   
             </div>  
@@ -203,7 +215,7 @@ h2{
 
 .card-nascosta{
   background-color: black;
-  overflow-y: hidden;
+  overflow-y: auto;
   height: 100%;
   width: 100%;
   color: white;
