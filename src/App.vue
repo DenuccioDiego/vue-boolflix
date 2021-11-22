@@ -19,13 +19,13 @@
      <section class="">
         <h2 class="">Film</h2>
 
-        <div class="row justify-content-center gx-0 text-center">
+        <div class="row justify-content-center text-center m-0 g-3">
           <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
 
-            <img class="h-100 w-100" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
-            <img class="h-100 w-100" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
+            <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
+            <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-            <div class="card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
+            <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
               <p>
                 <span class="title">Titolo: </span> {{movie.title}} 
               </p>
@@ -65,13 +65,13 @@
       <section class="">
         <h2 class="">Series TV</h2>
 
-        <div class="row justify-content-center gx-0 text-center">
+        <div class="row justify-content-center text-center m-0 g-3">
           <div class="card-superiore col-2 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
 
-            <img class="h-100 w-100" v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
-            <img class="h-100 w-100" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
+            <img class="h-100 w-100 rounded_5" v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
+            <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-            <div class="card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
+            <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
               <p>
                 <span class="title">Titolo: </span> {{oneSeries.name}} 
               </p>
@@ -182,6 +182,7 @@ export default {
 
 header{
   background-color: black;
+  padding: 0 20px 0 20px;
 
   & img{
     height: 5rem  ;
@@ -190,7 +191,6 @@ header{
 
 main{
   background-color: #141414;
-  
 
 }
 
@@ -215,7 +215,7 @@ h2{
 
 .card-nascosta{
   background-color: black;
-  overflow-y: auto;
+  overflow-y: hidden;
   height: 100%;
   width: 100%;
   color: white;
@@ -230,6 +230,8 @@ h2{
   object-fit: cover;
 }
 
-
+.rounded_5{
+  border-radius: 10px;
+}
 
 </style>
