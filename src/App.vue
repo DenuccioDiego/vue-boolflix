@@ -16,68 +16,78 @@
     <main class="">
 
       <!-- Film -->
-      <section class="">
-        
+     <section class="">
         <h2 class="">Film</h2>
-        
+
         <div class="row justify-content-center gx-0 text-center">
-          <div class="col-2" v-for="movie in movies" :key="movie.id">
+          <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
 
-        {{movie.title}} <br>
-        {{movie.original_title}} <br>
-        <span v-if="movie.original_language=='en'">
-          <CountryFlag country="gb-eng" size='big'/>
-        </span>
+            <img class="h-100 w-100" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
+            <img class="h-100 w-100" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-        <span v-else>
-          <CountryFlag :country="movie.original_language" size='big'/>
-        </span>
+            <div class="card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
+              <p>
+                <span class="title">Titolo: </span> {{movie.title}} 
+              </p>
 
-        {{movie.vote_average}} <br>
+              <p>
+                <span class="title">Titolo originale: </span> {{movie.original_title}}
+              </p>
+              
+              <p v-if="movie.original_language == 'en'"> 
+                <span class="title">Lingua originale: </span> <CountryFlag country="gb-eng" size='big'/>
+              </p>
 
-        <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(movie.vote_average/2)" :key="index" />
-                      
-        <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(movie.vote_average/2))" :key="index" />
-
-        <img :src="'http://image.tmdb.org/t/p/w92/'+movie.poster_path" alt="">
-
-          </div> 
+              <p v-else>
+                <span class="title">Lingua originale: </span><CountryFlag :country="movie.original_language" size='big'/>
+              </p>
+               
+              <p>
+                <span class="title">Valutazione: </span>
+                <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(movie.vote_average/2)" :key="index" />
+                <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(movie.vote_average/2))" :key="index" />
+              </p>
+                  
+            </div>  
+            
+          </div>
         </div>
         
-      </section> 
-
+      </section>
       <!-- Serie tv -->
       <section class="">
         <h2 class="">Series TV</h2>
 
         <div class="row justify-content-center gx-0 text-center">
-          <div class="card-superiore col-3 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
+          <div class="card-superiore col-2 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
 
-            <img v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
-            <img v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
+            <img class="h-100 w-100" v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
+            <img class="h-100 w-100" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
             <div class="card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
-              {{oneSeries.name}}
-              {{oneSeries.original_name}}
+              <p>
+                <span class="title">Titolo: </span> {{oneSeries.name}} 
+              </p>
 
-              <span v-if="oneSeries.original_language == 'en'"> 
-                <CountryFlag country="gb-eng" size='big'/>
-              </span>
+              <p>
+                <span class="title">Titolo originale: </span> {{oneSeries.original_name}}
+              </p>
+              
+              <p v-if="oneSeries.original_language == 'en'"> 
+                <span class="title">Lingua originale: </span> <CountryFlag country="gb-eng" size='big'/>
+              </p>
 
-              <span v-else>
-                <CountryFlag :country="oneSeries.original_language" size='big'/>
-              </span>
+              <p v-else>
+                <span class="title">Lingua originale: </span><CountryFlag :country="oneSeries.original_language" size='big'/>
+              </p>
                
-               
-              <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
-                    
-              <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
-
-            </div>
-
-           
-               
-            
+              <p>
+                <span class="title">Valutazione: </span>
+                <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(oneSeries.vote_average/2)" :key="index" />
+                <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(oneSeries.vote_average/2))" :key="index" />
+              </p>
+                  
+            </div>  
             
           </div>
         </div>
@@ -187,16 +197,25 @@ h2{
   color: gold;
 }
 
+.title{
+  font-weight: 600;
+}
+
 .card-nascosta{
   background-color: black;
   overflow-y: hidden;
   height: 100%;
   width: 100%;
+  color: white;
 }
 
 .card-superiore:hover .card-nascosta{
-  opacity: 1 !important;
+  opacity: 0.97 !important;
 
+}
+
+.object-fit-cover{
+  object-fit: cover;
 }
 
 
