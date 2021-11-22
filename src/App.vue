@@ -51,12 +51,12 @@
         <h2 class="">Series TV</h2>
 
         <div class="row justify-content-center gx-0 text-center">
-          <div @mouseover="showHover = true" @mouseout="showHover = false" class="col-2 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
+          <div class="card-superiore col-3 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
 
             <img v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
             <img v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-            <div :class="showHover === false ? 'opacity-0' : 'opacity-100'" class="position-absolute top-50 start-50 translate-middle opacity-0">
+            <div class="card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
               {{oneSeries.name}}
               {{oneSeries.original_name}}
 
@@ -187,9 +187,18 @@ h2{
   color: gold;
 }
 
-.padding{
-  padding-bottom: 20px;
+.card-nascosta{
+  background-color: black;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
 }
+
+.card-superiore:hover .card-nascosta{
+  opacity: 1 !important;
+
+}
+
 
 
 </style>
