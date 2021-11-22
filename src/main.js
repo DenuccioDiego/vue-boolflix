@@ -10,6 +10,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+
+
 library.add(faUserSecret)
 library.add(faStar)
 
