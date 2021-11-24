@@ -14,7 +14,7 @@
       <div>
         <form>
           <label>Scegli il genere del FILM:</label>
-          <select v-model="genreSearch" @change="prova();">
+          <select v-model="genreSearchMovie">
             <option value="Tutti">Tutti</option>
             <option :value="oneGeners.id" v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
           </select>
@@ -22,9 +22,9 @@
 
         <form>
           <label>Scegli il genere della serie TV:</label>
-          <select name="cars" id="cars">
-            <option >All values</option>
-            <option v-for="oneGeners in genersTV" :key="oneGeners.name">{{oneGeners.name}}</option>
+          <select v-model="genreSearchTV">
+            <option value="Tutti">Tutti</option>
+            <option :value="oneGeners.id" v-for="oneGeners in genersTV" :key="oneGeners.name">{{oneGeners.name}}</option>
           </select>
         </form>
       </div>
@@ -38,14 +38,12 @@
         <h2 class="">Film</h2>
 
         <div class="row justify-content-center text-center m-0 g-3">
-          <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
+          <div v-show="movie.genre_ids.includes(genreSearchMovie) || genreSearchMovie=='Tutti'" class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
             
-            <div v-if="movie.genre_ids.includes(genreSearch) || genreSearch=='Tutti' ">
+            <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
+            <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-              <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
-              <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
-
-              <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
+            <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
                 <p>
                   <span class="title">Titolo: </span> {{movie.title}} 
                 </p>
@@ -73,10 +71,8 @@
                   {{movie.overview}}
                 </p>
 
-              </div>
+            </div>
 
-            </div>  
-            
           </div>
         </div>
         
@@ -88,7 +84,7 @@
         <h2 class="">Series TV</h2>
 
         <div class="row justify-content-center text-center m-0 g-3">
-          <div class="card-superiore col-2 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
+          <div v-show="oneSeries.genre_ids.includes(genreSearchTV) || genreSearchTV=='Tutti'" class="card-superiore col-2 position-relative" v-for="oneSeries in series" :key="oneSeries.id">
 
             <img class="h-100 w-100 rounded_5" v-if="oneSeries.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+oneSeries.poster_path" alt="">
             <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
@@ -154,8 +150,9 @@ export default {
   },
 
   data(){
-    return{  
-      genreSearch : "Tutti", 
+    return{ 
+      genreSearchTV : "Tutti",
+      genreSearchMovie : "Tutti", 
       userSearch : "",
       movies : [],
       series : [],
@@ -169,11 +166,6 @@ export default {
 
 
   methods:{
-
-    prova(){
-      console.log(this.genreSearch)
-
-    },
 
     callApiGenersTV(){
       axios
