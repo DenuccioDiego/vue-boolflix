@@ -14,9 +14,9 @@
       <div>
         <form>
           <label>Scegli il genere del FILM:</label>
-          <select v-model="genreSearch" @change.prevent="prova();">
-            <option >Tutti</option>
-            <option v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
+          <select v-model="genreSearch" @change="prova();">
+            <option value="">Tutti</option>
+            <option :value="oneGeners.id" v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
           </select>
         </form>
 
@@ -39,37 +39,41 @@
 
         <div class="row justify-content-center text-center m-0 g-3">
           <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
+            
+            <div v-show="genreSearch == movie.genre_ids || genreSearch=='' ">
 
-            <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
-            <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
+              <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
+              <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
 
-            <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
-              <p>
-                <span class="title">Titolo: </span> {{movie.title}} 
-              </p>
+              <div class="rounded_5 card-nascosta position-absolute top-50 start-50 translate-middle opacity-0">
+                <p>
+                  <span class="title">Titolo: </span> {{movie.title}} 
+                </p>
 
-              <p v-if="movie.original_title != movie.title ">
-                <span class="title">Titolo originale: </span> {{movie.original_title}}
-              </p>
+                <p v-if="movie.original_title != movie.title ">
+                  <span class="title">Titolo originale: </span> {{movie.original_title}}
+                </p>
               
-              <p v-if="movie.original_language == 'en'"> 
-                <span class="title">Lingua originale: </span> <CountryFlag country="gb-eng" size='big'/>
-              </p>
+                <p v-if="movie.original_language == 'en'"> 
+                  <span class="title">Lingua originale: </span> <CountryFlag country="gb-eng" size='big'/>
+                </p>
 
-              <p v-else>
-                <span class="title">Lingua originale: </span><CountryFlag :country="movie.original_language" size='big'/>
-              </p>
+                <p v-else>
+                  <span class="title">Lingua originale: </span><CountryFlag :country="movie.original_language" size='big'/>
+                </p>
                
-              <p>
-                <span class="title">Valutazione: </span>
-                <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(movie.vote_average/2)" :key="index" />
-                <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(movie.vote_average/2))" :key="index" />
-              </p>
+                <p>
+                  <span class="title">Valutazione: </span>
+                  <font-awesome-icon class="gold" :icon="['fas','star']" v-for="index in Math.ceil(movie.vote_average/2)" :key="index" />
+                  <font-awesome-icon :icon="['fa','star']" v-for="index in (5 - Math.ceil(movie.vote_average/2))" :key="index" />
+                </p>
 
-              <p v-if="movie.overview != ''">
-                <span class="title">Overview: </span>
-                {{movie.overview}}
-              </p>
+                <p v-if="movie.overview != ''">
+                  <span class="title">Overview: </span>
+                  {{movie.overview}}
+                </p>
+
+              </div>
 
             </div>  
             
