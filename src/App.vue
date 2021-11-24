@@ -15,7 +15,7 @@
         <form>
           <label>Scegli il genere del FILM:</label>
           <select v-model="genreSearch" @change="prova();">
-            <option value="">Tutti</option>
+            <option value="Tutti">Tutti</option>
             <option :value="oneGeners.id" v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
           </select>
         </form>
@@ -38,9 +38,9 @@
         <h2 class="">Film</h2>
 
         <div class="row justify-content-center text-center m-0 g-3">
-          <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
+          <div v-for="movie in movies" :key="movie.id">
             
-            <div v-show="genreSearch == movie.genre_ids || genreSearch=='' ">
+            <div  v-if="movie.genre_ids.includes(genreSearch) || genreSearch=='Tutti' ">
 
               <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
               <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
