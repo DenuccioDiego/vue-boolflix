@@ -38,9 +38,9 @@
         <h2 class="">Film</h2>
 
         <div class="row justify-content-center text-center m-0 g-3">
-          <div v-for="movie in movies" :key="movie.id">
+          <div class="card-superiore col-2 position-relative" v-for="movie in movies" :key="movie.id">
             
-            <div  v-if="movie.genre_ids.includes(genreSearch) || genreSearch=='Tutti' ">
+            <div v-if="movie.genre_ids.includes(genreSearch) || genreSearch=='Tutti' ">
 
               <img class="h-100 w-100 rounded_5" v-if="movie.poster_path != null"  :src="'http://image.tmdb.org/t/p/w342/'+movie.poster_path" alt="">
               <img class="h-100 w-100 rounded_5" v-else src="https://upload.wikimedia.org/wikipedia/commons/9/95/No_immagine_disponibile.svg" alt="">
