@@ -11,6 +11,24 @@
         <button class="rounded-3" @click="callApiMovies(); callApiSeries();" type="button">Start</button>
       </div>
 
+      <div>
+        <form>
+          <label>Scegli il genere del FILM:</label>
+          <select name="cars" id="cars">
+            <option >All values</option>
+            <option v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
+          </select>
+        </form>
+
+        <form>
+          <label>Scegli il genere della serie TV:</label>
+          <select name="cars" id="cars">
+            <option >All values</option>
+            <option v-for="oneGeners in genersTV" :key="oneGeners.name">{{oneGeners.name}}</option>
+          </select>
+        </form>
+      </div>
+
     </header>
     
     <main class="">
@@ -138,13 +156,38 @@ export default {
       series : [],
       error : "",
       showHover : false ,
-      
+      genersMovie : [],
+      genersTV : [],
     }
          
   },
 
 
   methods:{
+
+    callApiGenersTV(){
+      axios
+      .get("https://api.themoviedb.org/3/genre/tv/list?api_key=30f94b70393e21156823d2636f7229b7")
+      .then(response=>{
+      this.genersTV = response.data.genres
+      console.log(this.genersTV)
+      }).catch(e=>{
+        this.error = `Ops ${e} `
+      })
+
+    },
+
+    callApiGenersMovie(){
+      axios
+      .get("https://api.themoviedb.org/3/genre/movie/list?api_key=30f94b70393e21156823d2636f7229b7")
+      .then(response=>{
+      this.genersMovie = response.data.genres
+      console.log(this.genersMovie)
+      }).catch(e=>{
+        this.error = `Ops ${e} `
+      })
+
+    },
 
     callApiSeries(){
       axios
@@ -170,8 +213,13 @@ export default {
     },
 
     
-  }
+  },
 
+  mounted(){
+    this.callApiGenersMovie()
+    this.callApiGenersTV()
+  }, 
+ 
 }
 </script>
 
