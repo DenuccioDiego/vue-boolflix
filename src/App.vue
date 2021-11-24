@@ -14,8 +14,8 @@
       <div>
         <form>
           <label>Scegli il genere del FILM:</label>
-          <select name="cars" id="cars">
-            <option >All values</option>
+          <select v-model="genreSearch" @change.prevent="prova();">
+            <option >Tutti</option>
             <option v-for="oneGeners in genersMovie" :key="oneGeners.name">{{oneGeners.name}}</option>
           </select>
         </form>
@@ -150,7 +150,8 @@ export default {
   },
 
   data(){
-    return{   
+    return{  
+      genreSearch : "Tutti", 
       userSearch : "",
       movies : [],
       series : [],
@@ -164,6 +165,11 @@ export default {
 
 
   methods:{
+
+    prova(){
+      console.log(this.genreSearch)
+
+    },
 
     callApiGenersTV(){
       axios
